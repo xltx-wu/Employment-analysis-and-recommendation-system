@@ -1,0 +1,38 @@
+EarSystem-server/HELP.md
+EarSystem-server/.gradle
+EarSystem-server/build/
+!EarSystem-server/gradle/wrapper/gradle-wrapper.jar
+!EarSystem-server/**/src/main/**/build/
+!EarSystem-server/**/src/test/**/build/
+
+### STS ###
+EarSystem-server/.apt_generated
+EarSystem-server/.classpath
+EarSystem-server/.factorypath
+EarSystem-server/.project
+EarSystem-server/.settings
+EarSystem-server/.springBeans
+EarSystem-server/.sts4-cache
+EarSystem-server/bin/
+!EarSystem-server/**/src/main/**/bin/
+!EarSystem-server/**/src/test/**/bin/
+
+### IntelliJ IDEA ###
+EarSystem-server/.idea
+EarSystem-server/*.iws
+EarSystem-server/*.iml
+EarSystem-server/*.ipr
+EarSystem-server/out/
+!EarSystem-server/**/src/main/**/out/
+!EarSystem-server/**/src/test/**/out/
+
+### NetBeans ###
+EarSystem-server/nbproject/private/
+EarSystem-server/nbbuild/
+EarSystem-server/dist/
+EarSystem-server/nbdist/
+EarSystem-server/.nb-gradle/
+
+### VS Code ###
+.vscode/
+EarSystem-server/.vscode/
