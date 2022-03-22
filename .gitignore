@@ -4,6 +4,7 @@ EarSystem-server/build/
 !EarSystem-server/gradle/wrapper/gradle-wrapper.jar
 !EarSystem-server/**/src/main/**/build/
 !EarSystem-server/**/src/test/**/build/
+*.class
 
 ### STS ###
 EarSystem-server/.apt_generated
