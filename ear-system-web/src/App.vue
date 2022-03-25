@@ -1,15 +1,44 @@
 <template>
   <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div id="ac"></div>
+
 </template>
 
-<script>
-import HelloWorld from './components/HelloWorld.vue'
+<script lang="ts">
+import {Vue} from 'vue-class-component';
+import * as echarts from 'echarts'
+import { watch } from '@vue/runtime-core';
 
-export default {
-  name: 'App',
-  components: {
-    HelloWorld
+export default class App extends Vue {
+  mychart!:echarts.ECharts;
+  chartOptions!:echarts.EChartsOption;
+
+  created(){
+    this.chartOptions={
+      title: {
+            text: 'ECharts 入门示例'
+          },
+          tooltip: {},
+          legend: {
+            data: ['销量']
+          },
+          xAxis: {
+            data: ['衬衫', '羊毛衫', '雪纺衫', '裤子', '高跟鞋', '袜子']
+          },
+          yAxis: {},
+          series: [
+            {
+              name: '销量',
+              type: 'bar',
+              data: [5, 20, 36, 10, 10, 20]
+            }
+          ]
+    };
+  }
+  mounted(){
+    this.mychart=echarts.init(document.getElementById("ac") as HTMLElement);
+    this.mychart.setOption(this.chartOptions);
+    watch(this.chartOptions,()=>{this.mychart.setOption(this.chartOptions)});
   }
 }
 </script>
@@ -22,5 +51,9 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+#ac{
+  width: 400px;
+  height: 400px;
 }
 </style>

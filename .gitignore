@@ -37,3 +37,8 @@ EarSystem-server/.nb-gradle/
 ### VS Code ###
 .vscode/
 EarSystem-server/.vscode/
+ear-system-web/ear-system-web.iml
+ear-system-web/typings.json
+ear-system-web/typings/
+
+ear-system-web/jsconfig.json
