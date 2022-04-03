@@ -7,6 +7,9 @@
                         <img src="../assets/logo.png" id="shouye">
                     </router-link>
                 </div>
+                <div class="nav_item">
+                    <router-link to="">某些功能</router-link>
+                </div>
             </div>
             <div id="nav_child1">
                 <div class="nav_item">
@@ -43,7 +46,7 @@ nav{
     padding: 10px;
 }
 .nav_item{
-    width: 50px;
+    width: 100px;
     height: 50px;
     line-height: 50px;
     text-align: center;
@@ -57,4 +60,5 @@ nav{
     justify-content: end;
     display: flex;
 }
+
 </style>

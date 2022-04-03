@@ -1,11 +1,19 @@
 <template>
-  <label for="username">用户名：</label>
-  <input type="text" v-model="username" id="username">
-  <br>
-  <label for="password">用户名：</label>
-  <input type="password" v-model="password" id="password">
-  <br>
-  <button v-on="login">登录</button>
+  <form id="form_login">
+    <div class="form_login_item">
+      <label for="username">用户名</label>
+      <input type="text" v-model="username" id="username">
+    </div>
+    <div class="form_login_item">
+      <label for="password">密码</label>
+      <input type="password" v-model="password" id="password">
+    </div>
+    <div class="form_login_item">
+      <button v-on="login" id="button_login">登录</button>
+      <router-link to="/register">去注册</router-link>
+    </div>
+
+  </form>
 </template>
 
 <script lang='ts'>
@@ -26,4 +34,25 @@ export default class LoginPage extends Vue{
 
 </script>
 <style>
+#form_login{
+  height: 600px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.form_login_item{
+  height: 40px;
+  margin-left: auto;
+  margin-right: auto;
+}
+#button_login{
+  margin-right: 80px;
+}
+label{
+  display: inline-block;
+	width: 80px;
+	text-align: justify;
+	text-align-last: justify;
+  margin-right: 10px;
+}
 </style>
