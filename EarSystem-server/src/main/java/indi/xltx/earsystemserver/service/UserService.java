@@ -9,8 +9,14 @@ import org.springframework.stereotype.Service;
 public class UserService{
     private UserMapper userMapper;
 
-    public MyUser getUserByName(String username){
+    public MyUser getUserByName(String username) {
         return userMapper.getUser(username);
+    }
+
+    public boolean addUser(MyUser user) {
+        //返回值为1则添加成功
+        int i = userMapper.addUser(user.getUsername(), user.getPassword(), user.getRole());
+        return i == 1;
     }
 
     @Autowired

@@ -24,7 +24,7 @@ public interface UserMapper {
     int deleteUserByUid(long uid);
 
     @Insert("insert into users (username,password,role) values(#{username},#{password},#{role})")
-    int addUser(String username,String password,String role);
+    int addUser(@Param("username")String username, @Param("password")String password, @Param("role")String role);
 
     @Update("update users set username=#{username},password=#{password},role=#{role} where uid=#{uid}")
     int updateUser(long uid,String username,String password,String role);
