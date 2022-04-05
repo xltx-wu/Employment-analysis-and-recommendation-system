@@ -42,3 +42,5 @@ ear-system-web/typings.json
 ear-system-web/typings/
 
 ear-system-web/jsconfig.json
+
+**/*.code-workspace
