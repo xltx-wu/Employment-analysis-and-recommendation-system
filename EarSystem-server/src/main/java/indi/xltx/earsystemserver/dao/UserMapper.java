@@ -17,9 +17,11 @@ public interface UserMapper {
     @Select("select * from users")
     List<MyUser> getUsers();
 
+    //根据用户名删除用户
     @Delete("delete from users where username=#{username}")
     int deleteUser(String username);
 
+    //根据用户id删除用户
     @Delete("delete from users where uid=#{uid}")
     int deleteUserByUid(long uid);
 
@@ -32,4 +34,8 @@ public interface UserMapper {
     @ResultMap("users")
     @Select("select * from users where username=#{username}")
     MyUser getUser(String username);
+
+    //判断数据库中是否存在该用户，存在返回1
+    @Select("select 1 from users where username = #{username} limit 1")
+    int isExist(String username);
 }

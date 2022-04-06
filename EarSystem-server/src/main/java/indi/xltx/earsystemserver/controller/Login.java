@@ -9,6 +9,7 @@ import indi.xltx.earsystemserver.config.auth.MyPasswordEncode;
 import indi.xltx.earsystemserver.pojo.MyUser;
 import indi.xltx.earsystemserver.service.UserService;
 
+//用户登录与注册
 @RestController
 public class Login {
 
@@ -29,7 +30,10 @@ public class Login {
     public String register(@RequestParam("username") String username,
             @RequestParam("password") String password) {
         //密码需要进行加密
-        MyUser user = new MyUser(username,passwordEncode.encode(password), null);
+        MyUser user = new MyUser(username, passwordEncode.encode(password), null);
+        if (userService.isExist(user)) {
+            return "用户已存在";
+        }
         if (userService.addUser(user)) {
             return "成功";
         }

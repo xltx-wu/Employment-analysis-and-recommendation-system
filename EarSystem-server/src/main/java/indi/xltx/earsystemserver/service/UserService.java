@@ -19,6 +19,15 @@ public class UserService{
         return i == 1;
     }
 
+    public boolean isExist(MyUser user) {
+        if (userMapper.isExist(user.getUsername()) == 1) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
     @Autowired
     public void setUserMapper(UserMapper userMapper) {
         this.userMapper = userMapper;
