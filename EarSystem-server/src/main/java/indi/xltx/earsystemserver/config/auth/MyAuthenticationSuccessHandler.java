@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 
@@ -18,8 +19,17 @@ public class MyAuthenticationSuccessHandler implements AuthenticationSuccessHand
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
             Authentication authentication) throws IOException, ServletException {
+        User user = (User) authentication.getPrincipal();
         response.setContentType("text/json;charset=utf-8");
-        response.getWriter().write(authentication.toString()+","+"success:true");
+        response.getWriter().write(
+                "{username:" + user.getUsername()
+                        + ",Enabled:" + user.isEnabled()
+                        + ",AccountNonExpired:" + user.isAccountNonExpired()
+                        + ",credentialsNonExpired:" + user.isCredentialsNonExpired()
+                        + ",AccountNonLocked:" + user.isAccountNonLocked()
+                        + ",Authorities:" + user.getAuthorities()
+                        + ",success:ture}"
+        );
     }
 
 }

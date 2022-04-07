@@ -53,19 +53,18 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.formLogin().permitAll() // 表单登录
             .loginProcessingUrl("/login")
-            .failureHandler(authenticationFailureHandler)
-            .successHandler(authenticationSuccessHandler)
+            .failureHandler(authenticationFailureHandler)//登录失败处理
+            .successHandler(authenticationSuccessHandler)//登录成功处理
         .and()
-            .logout()
-            .logoutSuccessHandler(logoutSuccessHandler)
-            .deleteCookies("JSESSIONID")
+            .logout().logoutSuccessHandler(logoutSuccessHandler).deleteCookies("JSESSIONID")//登出成功处理
         .and()
-            .authorizeRequests() // 授权配置
-            .antMatchers("/register").permitAll()
+            .authorizeRequests().antMatchers("/register").permitAll()
             .anyRequest()  // 所有请求
-            .authenticated() // 都需要认证
+            .authenticated()// 都需要认证
         .and()
             .csrf().disable(); //禁用CSRF
+
+        http.sessionManagement().maximumSessions(1);//session限定
     }
 
     @Override
