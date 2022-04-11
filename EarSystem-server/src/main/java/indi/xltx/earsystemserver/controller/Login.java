@@ -1,8 +1,8 @@
 package indi.xltx.earsystemserver.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import indi.xltx.earsystemserver.config.auth.MyPasswordEncode;
@@ -27,10 +27,9 @@ public class Login {
     }
 
     @RequestMapping(value = "/register")
-    public String register(@RequestParam("username") String username,
-            @RequestParam("password") String password) {
+    public String register(@RequestBody MyUser rawUser) {
         //密码需要进行加密
-        MyUser user = new MyUser(username, passwordEncode.encode(password), null);
+        MyUser user = new MyUser(rawUser.getUsername(), passwordEncode.encode(rawUser.getPassword()), null);
         if (userService.isExist(user)) {
             return "用户已存在";
         }

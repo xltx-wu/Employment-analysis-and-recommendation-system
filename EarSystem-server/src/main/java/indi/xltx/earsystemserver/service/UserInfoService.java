@@ -10,21 +10,21 @@ import indi.xltx.earsystemserver.pojo.UserInfo;
 public class UserInfoService {
     private UserInfoMapper userInfoMapper;
 
-    UserInfo getUerInfoByUid(long uid) {
+    public UserInfo getUerInfoByUid(long uid) {
         return userInfoMapper.getUserInfoByUid(uid);
     }
 
-    boolean updateUserInfo(UserInfo userInfo) {
+    public boolean updateUserInfo(UserInfo userInfo) {
 
         int i = userInfoMapper.updateUserInfo(
-            userInfo.uid(),
-            userInfo.name(),
-            userInfo.gender(),
-            userInfo.birthday(),
-            userInfo.nationality(),
-            userInfo.address(),
-            userInfo.mobile(),
-            userInfo.email()
+                userInfo.getUid(),
+                userInfo.getName(),
+                userInfo.getGender(),
+                userInfo.getBirthday(),
+                userInfo.getNationality(),
+                userInfo.getAddress(),
+                userInfo.getMobile(),
+                userInfo.getEmail()
         );
         return i == 1;
     }
