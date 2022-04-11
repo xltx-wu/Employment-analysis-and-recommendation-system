@@ -12,8 +12,14 @@
                 </div>
             </div>
             <div id="nav_child1">
-                <div class="nav_item">
+                <div class="nav_item" v-if="!userStatus.isEnabled">
                     <router-link to="/login">登录</router-link>
+                </div>
+                <div class="nav_item" v-if="userStatus.isEnabled">
+                    <router-link to="/user" v-text="userStatus.username"></router-link>
+                </div>
+                <div class="nav_item" v-if="userStatus.isEnabled">
+                    <a @click="logout">退出</a>
                 </div>
             </div>
 
@@ -22,6 +28,7 @@
 </template>
 
 <script lang='ts'>
+import axios from 'axios';
 import {Vue,Options} from 'vue-class-component';
 
 @Options({
@@ -29,7 +36,18 @@ import {Vue,Options} from 'vue-class-component';
 })
 
 export default class Header extends Vue{
+    userStatus={
+        username:'未知',                    //用户名
+        isEnabled:false,                //是否已激活
+        isAccountNonExpired:false,      //账号是否过期
+        isCredentialsNonExpired:false,  //密码是否过期
+        isAccountNonLocked:false,       //账号是否锁定
+        authorities:[]                  //权限
+    };
 
+    logout(){
+        axios.get('/api/logout');
+    }
 }
 
 </script>
@@ -53,11 +71,11 @@ nav{
     /*flex-direction: row;*/
 }
 #nav_child0{
-    justify-content: start;
+    justify-content: flex-start;
     display: flex;
 }
 #nav_cild1{
-    justify-content: end;
+    justify-content: flex-end;
     display: flex;
 }
 

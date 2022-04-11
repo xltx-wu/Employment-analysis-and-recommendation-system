@@ -13,21 +13,14 @@
             <input type="password" v-model="password1" id="password1">
         </div>
         <div class="form_register_item">
-            <label for="phone">电话号码</label>
-            <input type="tel" v-model="phone" id="phone">
-        </div>
-        <div class="form_register_item">
-            <label for="email">E-mail</label>
-            <input type="email" v-model="email" id="email">
-        </div>
-        <div class="form_register_item">
-            <button id="button_register" v-on="register">注册</button>
+            <button id="button_register" @click="register">注册</button>
         </div>
     </form>
 </template>
 
 <script lang='ts'>
 import {Vue,Options} from 'vue-class-component';
+import axios from 'axios';
 
 @Options({
     components:{}
@@ -37,10 +30,21 @@ export default class RegisterPage extends Vue{
     username='';
     password0='';
     password1='';
-    phone='';
-    email='';
     register(){
-        return 0;
+        if (this.password0!==this.password1) {
+            alert('两次密码不一致！');
+            return -1;
+        }
+        axios.post("/api/register",{
+            username:this.username,
+            password:this.password0
+        }).then((response)=>{
+            alert(response.data);
+            console.log(response.config);
+        }).catch((error)=>{
+            console.log(error);
+        });
+        return 1;
     }
 }
 
