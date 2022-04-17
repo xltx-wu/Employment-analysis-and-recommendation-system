@@ -72,7 +72,7 @@ class MyCommonSpider:
                 for i in range(len(v)):
                     changed_list += v[i]
                 data_dict[k] = changed_list
-    def save_to_excel(self, analysis_dict, excel_name, sheet_name=''):
+    """ def save_to_excel(self, analysis_dict, excel_name, sheet_name=''):
             '''
             存入excel表中
             :param analysis_dict: 处理后的数据字典
@@ -85,23 +85,24 @@ class MyCommonSpider:
                 data.to_excel(excel_name, index=True, sheet_name=sheet_name)
             else:
                 data.to_excel(excel_name, index=True)
-            print(f'excel文件{excel_name}已保存')
+            print(f'excel文件{excel_name}已保存') """
     def save_to_mysql(self,analysis_dict):
         _name = analysis_dict['工作名称']
-        _salary = analysis_dict['工资水平']
         _company = analysis_dict['公司名称']
+        _salary = analysis_dict['工资水平']
         _demand = analysis_dict['需求情况']
         _releasetime = analysis_dict['发布时间']
         _url = analysis_dict['连接地址']
+        
         # mysql数据库连接:参数：链接地址，端口，用户名，密码，数据库
-        db = pymysql.connect(host="localhost",port= 3306,user="root", password="990871", db="JobInfo",charset='utf8' )
+        db = pymysql.connect(host="localhost",port= 3306,user="root", password="Zy99!!", db="Job",charset='utf8' )
         logger.info("数据库初始化成功")
         # 获取游标
         cursor = db.cursor()
         # 数据插入
         for i in range(len(_name)):
-            sql = "INSERT INTO qcwy(name,salary, company, demand, releasetime,url)\
-            VALUES ('{0}','{1}','{2}','{3}','{4}','{5}')".format(_name[i],_salary[i],_company[i],_demand[i],_releasetime[i],_url[i])
+            sql = "INSERT INTO qcwy(name,company,maxsalary,minsalary,demand,releasetime,url)\
+            VALUES ('{0}','{1}','{2}','{3}','{4}','{5}','{6}')".format(_name[i],_company[i],_salary[:_salary.index('+')]+'000',_salary[:_salary.index('-')]+'000',_demand[i],_releasetime[i],_url[i])
             try:
                 cursor.execute(sql)
                 db.commit()
@@ -141,12 +142,20 @@ class MyCommonSpider:
                                             p_list=p_list)
             self.join_list_in_dict(data_dict=analysis_dict)  # 将的到的字典放入该函数中 将所有页的列表数据重新链接起来
             # self.save_to_excel(analysis_dict, f'{send_keys}招聘信息.xlsx', sheet_name=send_keys)  # 字典存入excel
+            for a,b,c,d,e,f in zip(p_job,p_company,p_salary,p_needs,p_time,p_link):
+                c = p_salary
+                try:
+                    max_salary = re.findall(r"\d+",c,)[1]+'000'
+                except:
+                    max_salary = c
+
             self.save_to_mysql(analysis_dict)
             logger.info(f'完成,时间：{datetime.datetime.now() - now}')  # 计算一下时间
 if __name__ == '__main__':
     # keys:要爬取的岗位
     # keys = ['java','c++','python','大数据','嵌入式','前端']
-    keys = ['安全','策划','运营','游戏']
+    # keys = ['安全','策划','运营','游戏','IC']
+    keys = ['安全','策划']
     # 每一类要爬取的页数
     pages = 5
     qcwy = MyCommonSpider()
