@@ -22,13 +22,13 @@ public class MyAuthenticationSuccessHandler implements AuthenticationSuccessHand
         User user = (User) authentication.getPrincipal();
         response.setContentType("text/json;charset=utf-8");
         response.getWriter().write(
-                "{userdetails:{username:" + user.getUsername() // 用户名
-                        + ",Enabled:" + user.isEnabled() // 账号是否激活
-                        + ",AccountNonExpired:" + user.isAccountNonExpired() // 账号是否未过期
-                        + ",credentialsNonExpired:" + user.isCredentialsNonExpired()// 密码是否未过期
-                        + ",AccountNonLocked:" + user.isAccountNonLocked() // 账号是否未锁定
-                        + ",Authorities:" + user.getAuthorities() // 权限
-                        + "},success:ture}"
+                "{'userdetails':{'username':" + user.getUsername() // 用户名
+                        + ",'Enabled':" + user.isEnabled() // 账号是否激活
+                        + ",'AccountNonExpired':" + user.isAccountNonExpired() // 账号是否未过期
+                        + ",'credentialsNonExpired':" + user.isCredentialsNonExpired()// 密码是否未过期
+                        + ",'AccountNonLocked':" + user.isAccountNonLocked() // 账号是否未锁定
+                        + ",'Authorities':" + user.getAuthorities() // 权限
+                        + "},'success':ture}"
         );
         System.out.println(user);
     }
