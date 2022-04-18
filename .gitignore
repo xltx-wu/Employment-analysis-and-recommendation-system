@@ -44,3 +44,4 @@ ear-system-web/typings/
 ear-system-web/jsconfig.json
 
 **/*.code-workspace
+./package-lock.json
