@@ -18,7 +18,7 @@ public class MyLogoutSuccessHandler implements LogoutSuccessHandler{
     public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication)
             throws IOException, ServletException {
         response.setContentType("text/json;charset=utf-8");
-        response.getWriter().write("{message:'登出成功',success:true}");
+        response.getWriter().write("{'message':'登出成功','success':true}");
 
     }
 
