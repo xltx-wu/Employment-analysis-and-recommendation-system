@@ -28,7 +28,7 @@ public class MyAuthenticationSuccessHandler implements AuthenticationSuccessHand
                         + ",'credentialsNonExpired':" + user.isCredentialsNonExpired()// 密码是否未过期
                         + ",'AccountNonLocked':" + user.isAccountNonLocked() // 账号是否未锁定
                         + ",'Authorities':" + user.getAuthorities() // 权限
-                        + "},'success':ture}"
+                        + "},'success':true}"
         );
         System.out.println(user);
     }
