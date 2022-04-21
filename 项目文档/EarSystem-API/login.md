@@ -18,13 +18,15 @@
 |---|:---:|---|
 |**username**|string|用户名|
 |**password**|string|密码|
+|**code**|string|图形验证码|
 
 >请求示例
 >
 >```json
 >{
 >    "username":"user",
->    "password":"123456"
+>    "password":"123456",
+>    "code":"as45"
 >}
 >```
 
