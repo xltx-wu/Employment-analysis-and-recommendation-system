@@ -22,7 +22,9 @@ public class UserInfoService {
                 userInfo.getGender(),
                 userInfo.getBirthday(),
                 userInfo.getNationality(),
-                userInfo.getAddress(),
+                userInfo.getProvince(),
+                userInfo.getCity(),
+                userInfo.getDistrict(),
                 userInfo.getMobile(),
                 userInfo.getEmail()
         );
