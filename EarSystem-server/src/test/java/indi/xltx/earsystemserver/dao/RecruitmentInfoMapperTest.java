@@ -1,7 +1,6 @@
 package indi.xltx.earsystemserver.dao;
 
 import org.junit.jupiter.api.Test;
-import org.mybatis.spring.boot.test.autoconfigure.MybatisTest;
 
 public class RecruitmentInfoMapperTest {
     @Test

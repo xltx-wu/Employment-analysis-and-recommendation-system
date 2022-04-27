@@ -17,45 +17,51 @@ public interface RecruitmentInfoMapper {
     @SelectProvider(RecruitmentInfoSqlProvider.class)
     Cursor<RecruitmentInfo> getLatestInfo(@Param("limit") int limit);
 
-    @Select("select * from qcwy where id = #{id}")
+    @Select("select * from job_info where id = #{id}")
     RecruitmentInfoCommon getCommonInfoById(long id);
 
     @SelectProvider(RecruitmentInfoSqlProvider.class)
-    Cursor<RecruitmentInfo> getInfoByKeyWord();
+    Cursor<RecruitmentInfo> getInfoByKeyWord(String city, int workTime, String industry, int offset, int rows);
 
-    Cursor<RecruitmentInfo> getInfoByAddress();
+    Cursor<RecruitmentInfo> getInfoByCity();
 
     class RecruitmentInfoSqlProvider implements ProviderMethodResolver {
         // 获取最新职业信息（简略）的SQL语句生成器
         public static String getLatestInfo(@Param("limit") int limit) {
-
-            String sql0 = new SQL() {
+            return new SQL() {
                 {
-
                     SELECT("id");
-                    SELECT("name");
+                    SELECT("jobname");
                     SELECT("company");
+                    SELECT("degree");
                     SELECT("releasetime");
-                    FROM("qcwy");
+                    FROM("job_info");
                     ORDER_BY("releasetime");
                     LIMIT(limit);
                 }
             }.toString();
+        }
 
-            String sql1 = new SQL() {
+        public static String getInfoByKeyWord(String city, int workTime, String industry, int offset, int rows) {
+            return new SQL() {
                 {
                     SELECT("id");
-                    SELECT("jobname AS name");
-                    SELECT("jobunit AS company");
-                    SELECT("releasetime");
-                    FROM("gwy");
-                    ORDER_BY("releasetime");
-                    LIMIT(limit);
+                    SELECT("jobname");
+                    SELECT("company");
+                    SELECT("degree");
+                    FROM("job_info");
+                    if (industry != null) {
+                        WHERE("industry=#{industry}");
+                    }
+                    if (city != null) {
+                        WHERE("city=#{city}");
+                    }
+                    if (workTime > 0) {
+                        WHERE("worktime<#{workTime}");
+                    }
+                    LIMIT("#{offset},#{rows}");
                 }
             }.toString();
-
-            String sql = "(%s) UNION (%s)";
-            return String.format(sql, sql0, sql1);
         }
     }
 }

@@ -2,7 +2,7 @@ package indi.xltx.earsystemserver.pojo;
 
 public class RecruitmentInfo {
     private long id; // 唯一标识id
-    private String name; // 工作名称
+    private String jobname; // 工作名称
     private String company; // 用人单位名称
     private String degree; // 学历要求
 
@@ -21,17 +21,17 @@ public class RecruitmentInfo {
     }
 
     /**
-     * @return the name
+     * @return the jobname
      */
-    public String getName() {
-        return name;
+    public String getJobname() {
+        return jobname;
     }
 
     /**
-     * @param name the name to set
+     * @param jobname the jobname to set
      */
-    public void setName(String name) {
-        this.name = name;
+    public void setJobname(String jobname) {
+        this.jobname = jobname;
     }
 
     /**
