@@ -13,11 +13,11 @@ import indi.xltx.earsystemserver.pojo.UserInfo;
 public interface UserInfoMapper {
 
     @Select("select * from user_info where uid=#{uid}")
-    UserInfo getUserInfoByUid(long uid);
+    UserInfo getUserInfoByUid(Long uid);
 
     @Update("update user_info set name=#{name},gender=#{gender},birthday=#{birthday},nationality=#{nationality},province=#{province},city=#{city},district=#{district},mobile=#{mobile},email=#{email} where uid=#{uid}")
     int updateUserInfo(
-            @Param("uid") long uid,
+            @Param("uid") Long uid,
             @Param("name") String username,
             @Param("gender") String gender,
             @Param("birthday") Date birthday,

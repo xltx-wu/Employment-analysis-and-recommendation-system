@@ -3,7 +3,7 @@ package indi.xltx.earsystemserver.pojo;
 import java.sql.Date;
 
 public class UserInfo {
-    private long uid;
+    private Long uid;
     private String name;
     private String gender;
     private Date birthday;
@@ -17,14 +17,14 @@ public class UserInfo {
     /**
      * @return the uid
      */
-    public long getUid() {
+    public Long getUid() {
         return uid;
     }
 
     /**
      * @param uid the uid to set
      */
-    public void setUid(long uid) {
+    public void setUid(Long uid) {
         this.uid = uid;
     }
 

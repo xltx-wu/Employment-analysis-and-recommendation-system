@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import indi.xltx.earsystemserver.pojo.MyUser;
@@ -27,13 +28,13 @@ public class UserInfoController {
         this.infoService = infoService;
     }
 
-    @RequestMapping("/getuserinfo")
+    @RequestMapping(value = "/getuserinfo", method = RequestMethod.POST)
     public UserInfo getUserInfo(@AuthenticationPrincipal UserDetails userDetails) {
         MyUser user = userService.getUserByName(userDetails.getUsername());
         return infoService.getUerInfoByUid(user.getUid());
     }
 
-    @RequestMapping("/updateuserinfo")
+    @RequestMapping(value = "/updateuserinfo", method = RequestMethod.POST)
     public String updateUserInfo(UserInfo userInfo) {
         if (infoService.updateUserInfo(userInfo)) {
             return "{message:'更新成功',success:true}";

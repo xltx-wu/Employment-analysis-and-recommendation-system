@@ -1,5 +1,7 @@
 package indi.xltx.earsystemserver.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -15,19 +17,30 @@ import indi.xltx.earsystemserver.pojo.RecruitmentInfoCommon;
 public interface RecruitmentInfoMapper {
 
     @SelectProvider(RecruitmentInfoSqlProvider.class)
-    Cursor<RecruitmentInfo> getLatestInfo(@Param("limit") int limit);
+    Cursor<RecruitmentInfo> getLatestInfo(@Param("limit") Integer limit);
 
     @Select("select * from job_info where id = #{id}")
-    RecruitmentInfoCommon getCommonInfoById(long id);
+    RecruitmentInfoCommon getCommonInfoById(Long id);
+
+    @Select("select distinct industry from job_info")
+    List<String> getIndustryList();
+
+    @Select("select distinct city from job_info")
+    List<String> getCityList();
 
     @SelectProvider(RecruitmentInfoSqlProvider.class)
-    Cursor<RecruitmentInfo> getInfoByKeyWord(String city, int workTime, String industry, int offset, int rows);
-
-    Cursor<RecruitmentInfo> getInfoByCity();
+    Cursor<RecruitmentInfo> getInfoByKeyWord(
+            String city,
+            Integer workTime,
+            String industry,
+            Integer minSalary,
+            Integer maxSalary,
+            Integer offset,
+            Integer rows);
 
     class RecruitmentInfoSqlProvider implements ProviderMethodResolver {
         // 获取最新职业信息（简略）的SQL语句生成器
-        public static String getLatestInfo(@Param("limit") int limit) {
+        public static String getLatestInfo(@Param("limit") Integer limit) {
             return new SQL() {
                 {
                     SELECT("id");
@@ -42,7 +55,15 @@ public interface RecruitmentInfoMapper {
             }.toString();
         }
 
-        public static String getInfoByKeyWord(String city, int workTime, String industry, int offset, int rows) {
+        // 根据筛选条件获取职业信息的SQL语句生成器
+        public static String getInfoByKeyWord(
+                String city,
+                Integer workTime,
+                String industry,
+                Integer minSalary,
+                Integer maxSalary,
+                Integer offset,
+                Integer rows) {
             return new SQL() {
                 {
                     SELECT("id");
@@ -59,7 +80,19 @@ public interface RecruitmentInfoMapper {
                     if (workTime > 0) {
                         WHERE("worktime<#{workTime}");
                     }
-                    LIMIT("#{offset},#{rows}");
+                    if (minSalary != null) {
+                        WHERE("minsalary>#{minSalary}");
+                        WHERE("maxsalary>#{minSalary}");
+                    }
+                    if (maxSalary != null) {
+                        WHERE("maxsalary<#{maxSalary}");
+
+                    }
+                    if (rows != null && offset == null) {
+                        LIMIT("#{rows}");
+                    } else if (rows != null && offset != null) {
+                        LIMIT("#{offset},#{rows}");
+                    }
                 }
             }.toString();
         }

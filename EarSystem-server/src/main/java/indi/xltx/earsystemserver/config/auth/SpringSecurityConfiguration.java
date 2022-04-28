@@ -58,11 +58,9 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
         .and()
             .logout().logoutSuccessHandler(logoutSuccessHandler).deleteCookies("JSESSIONID")//登出成功处理
         .and()
-                .authorizeRequests().antMatchers("/register",
-                        "/api/captcha")
-                .permitAll()
-            .anyRequest()  // 所有请求
-            .authenticated()// 都需要认证
+                .authorizeRequests()
+                .anyRequest().permitAll() // 所有请求
+                // .authenticated()// 都需要认证
         .and()
             .csrf().disable(); //禁用CSRF
 

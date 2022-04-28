@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -14,7 +15,8 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class CaptchaImageControllerTest {
+public class RecruitmentInfoControllerTest {
+
     @Autowired
     private MockMvc mockMvc;
 
@@ -27,11 +29,27 @@ public class CaptchaImageControllerTest {
     void end() {
         System.out.println("-----------------------结束---------------------------");
     }
+
     @Test
-    void testImageCode() throws Exception {
-        RequestBuilder requestBuilder = MockMvcRequestBuilders.post("/api/captcha");
+    void testGetCityList() throws Exception {
+        RequestBuilder requestBuilder = MockMvcRequestBuilders
+                .post("/jobinfo/getcitylist")
+                .accept(MediaType.APPLICATION_JSON_VALUE);
         mockMvc.perform(requestBuilder)
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andDo(MockMvcResultHandlers.print());
+    }
+
+    @Test
+    void testGetIndustryList() throws Exception {
+        RequestBuilder requestBuilder = MockMvcRequestBuilders.post("/jobinfo/getindustrylist");
+        mockMvc.perform(requestBuilder)
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andDo(MockMvcResultHandlers.print());
+    }
+
+    @Test
+    void testGetInfoByKeyWord() {
+
     }
 }

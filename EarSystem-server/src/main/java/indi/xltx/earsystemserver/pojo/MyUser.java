@@ -1,7 +1,7 @@
 package indi.xltx.earsystemserver.pojo;
 
 public class MyUser {
-    private long uid;
+    private Long uid;
     private String username;
     private  String password;
     private String role;
@@ -23,7 +23,7 @@ public class MyUser {
         this.username = username;
     }
 
-    public long getUid() {
+    public Long getUid() {
         return uid;
     }
 

@@ -10,7 +10,7 @@ import indi.xltx.earsystemserver.pojo.UserInfo;
 public class UserInfoService {
     private UserInfoMapper userInfoMapper;
 
-    public UserInfo getUerInfoByUid(long uid) {
+    public UserInfo getUerInfoByUid(Long uid) {
         return userInfoMapper.getUserInfoByUid(uid);
     }
 

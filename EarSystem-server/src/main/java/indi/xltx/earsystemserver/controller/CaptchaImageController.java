@@ -5,7 +5,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import indi.xltx.earsystemserver.utils.CaptchaImageGenerator;
 
@@ -15,8 +15,7 @@ import java.util.Date;
 @RestController("/api")
 public class CaptchaImageController {
 
-    @RequestMapping(value = "/captcha")
-    @ResponseBody
+    @RequestMapping(value = "/captcha", method = RequestMethod.POST)
     public BufferedImage imageCode(HttpServletRequest request, HttpServletResponse response) throws Exception {
         response.setDateHeader("Expires", 0);
         response.setHeader("Cache-Control", "no-store, no-cache, must-revalidate");

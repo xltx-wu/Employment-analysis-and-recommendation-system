@@ -23,7 +23,7 @@ public interface UserMapper {
 
     //根据用户id删除用户
     @Delete("delete from users where uid=#{uid}")
-    int deleteUserByUid(long uid);
+    int deleteUserByUid(Long uid);
 
     @Insert("insert into users (username,password,role) values(#{username},#{password},#{role})")
     int addUser(@Param("username")String username, @Param("password")String password, @Param("role")String role);
@@ -37,5 +37,5 @@ public interface UserMapper {
 
     //判断数据库中是否存在该用户，存在返回1
     @Select("select 1 from users where username = #{username} limit 1")
-    int isExist(String username);
+    Integer isExist(String username);
 }
