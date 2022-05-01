@@ -19,7 +19,7 @@ public class MyAuthenticationFailureHandler implements AuthenticationFailureHand
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
             AuthenticationException exception) throws IOException, ServletException {
         response.setContentType("text/json;charset=utf-8");
-        response.getWriter().write("{'message':" + exception.getMessage() + ",'success':false}");
+        response.getWriter().write("{\"message\":" + exception.getMessage() + ",\"success\":false}");
     }
 
 }

@@ -40,7 +40,6 @@ public class RecruitmentInfoController {
                 SqlSession session = sessionFactory.openSession();
                 Cursor<RecruitmentInfo> mCursor = session.getMapper(RecruitmentInfoMapper.class)
                         .getInfoByKeyWord(city, workTime, industry, minSalary, maxSalary, offset, rows)) {
-
             for (RecruitmentInfo recruitmentInfo : mCursor) {
                 mList.add(recruitmentInfo);
             }

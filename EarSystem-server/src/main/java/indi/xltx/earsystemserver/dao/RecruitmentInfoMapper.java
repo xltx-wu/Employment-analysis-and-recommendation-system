@@ -1,7 +1,9 @@
 package indi.xltx.earsystemserver.dao;
 
 import java.util.List;
+import java.util.Map;
 
+import org.apache.ibatis.annotations.MapKey;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -16,6 +18,7 @@ import indi.xltx.earsystemserver.pojo.RecruitmentInfoCommon;
 @Mapper
 public interface RecruitmentInfoMapper {
 
+    // 获取最新招聘信息
     @SelectProvider(RecruitmentInfoSqlProvider.class)
     Cursor<RecruitmentInfo> getLatestInfo(@Param("limit") Integer limit);
 
@@ -37,6 +40,10 @@ public interface RecruitmentInfoMapper {
             Integer maxSalary,
             Integer offset,
             Integer rows);
+
+    @SelectProvider(RecruitmentInfoSqlProvider.class)
+    @MapKey("industry")
+    Map<String, Integer> getRequirementGroupByIndustry();
 
     class RecruitmentInfoSqlProvider implements ProviderMethodResolver {
         // 获取最新职业信息（简略）的SQL语句生成器
@@ -93,6 +100,17 @@ public interface RecruitmentInfoMapper {
                     } else if (rows != null && offset != null) {
                         LIMIT("#{offset},#{rows}");
                     }
+                }
+            }.toString();
+        }
+
+        public static String getRequirementGroupByIndustry() {
+            return new SQL() {
+                {
+                    SELECT("industry");
+                    SELECT("SUM(quantity)");
+                    FROM("job_info");
+                    GROUP_BY("industry");
                 }
             }.toString();
         }

@@ -23,7 +23,6 @@ public class CaptchaImageController {
         session.setAttribute("codeTime", new Date().getTime());
 
         BufferedImage image = CaptchaImageGenerator.getImageCode(86, 37, simpleCaptcha);
-        System.out.println(image.toString());
         return image;
     }
 }

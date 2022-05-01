@@ -16,7 +16,7 @@ public interface UserInfoMapper {
     UserInfo getUserInfoByUid(Long uid);
 
     @Update("update user_info set name=#{name},gender=#{gender},birthday=#{birthday},nationality=#{nationality},province=#{province},city=#{city},district=#{district},mobile=#{mobile},email=#{email} where uid=#{uid}")
-    int updateUserInfo(
+    Integer updateUserInfo(
             @Param("uid") Long uid,
             @Param("name") String username,
             @Param("gender") String gender,

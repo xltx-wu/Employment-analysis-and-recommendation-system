@@ -19,23 +19,23 @@ public interface UserMapper {
 
     //根据用户名删除用户
     @Delete("delete from users where username=#{username}")
-    int deleteUser(String username);
+    Integer deleteUser(String username);
 
     //根据用户id删除用户
     @Delete("delete from users where uid=#{uid}")
-    int deleteUserByUid(Long uid);
+    Integer deleteUserByUid(Long uid);
 
     @Insert("insert into users (username,password,role) values(#{username},#{password},#{role})")
-    int addUser(@Param("username")String username, @Param("password")String password, @Param("role")String role);
+    Integer addUser(@Param("username") String username, @Param("password") String password, @Param("role") String role);
 
     @Update("update users set username=#{username},password=#{password},role=#{role} where uid=#{uid}")
-    int updateUser(long uid,String username,String password,String role);
+    Integer updateUser(Long uid, String username, String password, String role);
 
     @ResultMap("users")
     @Select("select * from users where username=#{username}")
     MyUser getUser(String username);
 
     //判断数据库中是否存在该用户，存在返回1
-    @Select("select 1 from users where username = #{username} limit 1")
+    @Select("select IFNULL((select 1 from users where username = #{username} limit 1),0);")
     Integer isExist(String username);
 }

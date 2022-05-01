@@ -64,7 +64,7 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
         .and()
             .csrf().disable(); //禁用CSRF
 
-        http.sessionManagement().maximumSessions(1);//session限定
+        // http.sessionManagement().maximumSessions(1);//session限定
     }
 
     @Override
