@@ -8,3 +8,12 @@ spring:
     password: 123456
   profiles:
     active: default
+
+#以下为用户配置
+user:
+  task:
+    pool:
+        core-size: 20
+        max-size: 40
+        keep-alive: 300
+        queue-capacity: 50

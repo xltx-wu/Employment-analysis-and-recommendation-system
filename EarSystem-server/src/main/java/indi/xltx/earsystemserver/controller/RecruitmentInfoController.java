@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import indi.xltx.earsystemserver.dao.RecruitmentInfoMapper;
 import indi.xltx.earsystemserver.pojo.RecruitmentInfo;
+import indi.xltx.earsystemserver.service.RecruitmentInfoService;
 
 @RestController
 @RequestMapping("/jobinfo")
@@ -25,6 +26,10 @@ public class RecruitmentInfoController {
     @Autowired
     RecruitmentInfoMapper infoMapper;
 
+    @Autowired
+    RecruitmentInfoService service;
+
+    // 通过关键字段筛选
     @RequestMapping(value = "/getbykey", method = RequestMethod.POST)
     public List<RecruitmentInfo> getInfoByKeyWord(
             @RequestParam("city") String city,
@@ -50,6 +55,7 @@ public class RecruitmentInfoController {
         return mList;
     }
 
+    // 获取行业列表
     @RequestMapping(value = "/getindustrylist", method = RequestMethod.POST)
     public List<String> getIndustryList() {
         List<String> mList = new ArrayList<String>();
@@ -57,10 +63,15 @@ public class RecruitmentInfoController {
         return mList;
     }
 
+    // 获取城市列表
     @RequestMapping(value = "/getcitylist", method = RequestMethod.POST)
     public List<String> getCityList() {
-        List<String> mList = new ArrayList<String>();
-        mList = infoMapper.getCityList();
-        return mList;
+        return service.getCityList();
+    }
+
+    // 获取最新的招聘信息
+    @RequestMapping(value = "/getlatestinfo", method = RequestMethod.POST)
+    public List<RecruitmentInfo> getLatestInfo() {
+        return service.getLatestInfoList();
     }
 }

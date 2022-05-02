@@ -37,9 +37,9 @@ public class UserInfoController {
     @RequestMapping(value = "/updateuserinfo", method = RequestMethod.POST)
     public String updateUserInfo(UserInfo userInfo) {
         if (infoService.updateUserInfo(userInfo)) {
-            return "{message:'更新成功',success:true}";
+            return "{message:\"更新成功\",\"success\":true}";
         } else {
-            return "{message:'更新失败',success:false}";
+            return "{message:\"更新失败\",\"success\":false}";
         }
     }
 }
