@@ -36,6 +36,7 @@ EarSystem-server/.nb-gradle/
 
 ### VS Code ###
 .vscode/
+.vs/
 EarSystem-server/.vscode/
 ear-system-web/ear-system-web.iml
 ear-system-web/typings.json
