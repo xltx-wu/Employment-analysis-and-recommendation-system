@@ -41,6 +41,7 @@ public interface RecruitmentInfoMapper {
             Integer offset,
             Integer rows);
 
+    // 按行业分的需求人数
     @SelectProvider(RecruitmentInfoSqlProvider.class)
     @MapKey("industry")
     Map<String, Integer> getRequirementGroupByIndustry();

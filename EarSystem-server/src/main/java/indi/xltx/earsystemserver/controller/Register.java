@@ -14,7 +14,7 @@ import indi.xltx.earsystemserver.config.auth.MyPasswordEncode;
 import indi.xltx.earsystemserver.pojo.MyUser;
 import indi.xltx.earsystemserver.service.UserService;
 
-//用户登录与注册
+//用注册
 @RestController
 public class Register {
 
