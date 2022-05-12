@@ -1,12 +1,14 @@
 <template>
   <Header/>
   <router-view/>
+  <div id="mychart"></div>
   <Footer></Footer>
 </template>
 <script lang='ts'>
 import {Vue,Options} from 'vue-class-component';
 import Header from './components/Header.vue';
 import Footer from './components/Footer.vue';
+import * as echarts from 'echarts';
 
 
 @Options({
@@ -17,6 +19,27 @@ import Footer from './components/Footer.vue';
 
 export default class App extends Vue{
 
+  echartsinit(){
+    let mychart=echarts.init(document.getElementById('mychart') as HTMLElement)
+    let js=require("./resource/geojson.json");
+    echarts.registerMap('test', js, {});
+    let option={
+      series: [
+        {
+          type: 'map',
+          mapType: 'test',//名称需要echarts.registerMap('linyi',linyiMap,{})中的名称一致
+          label: { show: true }, //显示文字
+          roam: true,
+          data: [],
+        },
+      ]
+    }
+    mychart.setOption(option)
+  }
+
+  mounted(){
+    this.echartsinit();
+  }
 }
 
 </script>
@@ -28,6 +51,11 @@ export default class App extends Vue{
   color: #2c3e50;
   display: flex;
   flex-direction: column;
+}
+
+#mychart{
+  width: 800px;
+  height: 800px;
 }
 
 nav {
