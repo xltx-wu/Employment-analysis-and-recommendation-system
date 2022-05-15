@@ -24,4 +24,4 @@
 
 > 返回示例
 >
-> ![验证码](./image/CaptchaImage.png)
+> ![验证码](./image/CaptchaImage.jpeg)
