@@ -33,13 +33,13 @@ public interface RecruitmentInfoMapper {
 
     @SelectProvider(RecruitmentInfoSqlProvider.class)
     Cursor<RecruitmentInfo> getInfoByKeyWord(
-            String city,
-            Integer workTime,
-            String industry,
-            Integer minSalary,
-            Integer maxSalary,
-            Integer offset,
-            Integer rows);
+            @Param("city") String city,
+            @Param("workTime") Integer workTime,
+            @Param("industry") String industry,
+            @Param("minSalary") Integer minSalary,
+            @Param("maxSalary") Integer maxSalary,
+            @Param("offset") Integer offset,
+            @Param("rows") Integer rows);
 
     // 按行业分的需求人数
     @SelectProvider(RecruitmentInfoSqlProvider.class)
@@ -65,13 +65,13 @@ public interface RecruitmentInfoMapper {
 
         // 根据筛选条件获取职业信息的SQL语句生成器
         public static String getInfoByKeyWord(
-                String city,
-                Integer workTime,
-                String industry,
-                Integer minSalary,
-                Integer maxSalary,
-                Integer offset,
-                Integer rows) {
+                @Param("city") String city,
+                @Param("workTime") Integer workTime,
+                @Param("industry") String industry,
+                @Param("minSalary") Integer minSalary,
+                @Param("maxSalary") Integer maxSalary,
+                @Param("offset") Integer offset,
+                @Param("rows") Integer rows) {
             return new SQL() {
                 {
                     SELECT("id");
@@ -79,15 +79,16 @@ public interface RecruitmentInfoMapper {
                     SELECT("company");
                     SELECT("degree");
                     FROM("job_info");
+                    if (workTime != null && workTime > 0) {
+                        WHERE("worktime<#{workTime}");
+                    }
                     if (industry != null) {
                         WHERE("industry=#{industry}");
                     }
                     if (city != null) {
                         WHERE("city=#{city}");
                     }
-                    if (workTime > 0) {
-                        WHERE("worktime<#{workTime}");
-                    }
+
                     if (minSalary != null) {
                         WHERE("minsalary>#{minSalary}");
                         WHERE("maxsalary>#{minSalary}");

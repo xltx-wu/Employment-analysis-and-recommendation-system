@@ -7,9 +7,9 @@ import org.apache.ibatis.cursor.Cursor;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import indi.xltx.earsystemserver.dao.RecruitmentInfoMapper;
@@ -31,20 +31,15 @@ public class RecruitmentInfoController {
 
     // 通过关键字段筛选
     @RequestMapping(value = "/getbykey", method = RequestMethod.POST)
-    public List<RecruitmentInfo> getInfoByKeyWord(
-            @RequestParam("city") String city,
-            @RequestParam("worktime") Integer workTime,
-            @RequestParam("industry") String industry,
-            @RequestParam("minSalary") Integer minSalary,
-            @RequestParam("maxSalary") Integer maxSalary,
-            @RequestParam("offset") Integer offset,
-            @RequestParam("rows") Integer rows) {
+    public List<RecruitmentInfo> getInfoByKeyWord(@RequestBody tempJobInfo info) {
+        System.out.println(info);
 
         List<RecruitmentInfo> mList = new ArrayList<RecruitmentInfo>();
         try (
                 SqlSession session = sessionFactory.openSession();
                 Cursor<RecruitmentInfo> mCursor = session.getMapper(RecruitmentInfoMapper.class)
-                        .getInfoByKeyWord(city, workTime, industry, minSalary, maxSalary, offset, rows)) {
+                        .getInfoByKeyWord(info.city, info.workTime, info.industry, info.minSalary, info.maxSalary,
+                                info.offset, info.rows)) {
             for (RecruitmentInfo recruitmentInfo : mCursor) {
                 mList.add(recruitmentInfo);
             }
@@ -73,5 +68,15 @@ public class RecruitmentInfoController {
     @RequestMapping(value = "/getlatestinfo", method = RequestMethod.POST)
     public List<RecruitmentInfo> getLatestInfo() {
         return service.getLatestInfoList();
+    }
+
+    public static record tempJobInfo(
+            String city,
+            Integer workTime,
+            String industry,
+            Integer minSalary,
+            Integer maxSalary,
+            Integer offset,
+            Integer rows) {
     }
 }

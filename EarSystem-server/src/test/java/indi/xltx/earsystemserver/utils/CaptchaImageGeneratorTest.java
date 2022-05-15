@@ -18,7 +18,7 @@ public class CaptchaImageGeneratorTest {
     void testGetImageCode() throws IOException {
         String captch = CaptchaImageGenerator.CaptchaStr(5);
         BufferedImage image = CaptchaImageGenerator.getImageCode(100, 30, captch);
-        File myImage = new File("C:/Users/24633/Desktop", "test.jpeg");
+        File myImage = new File("D:/", "test.jpeg");
         ImageIO.write(image, "jpeg", myImage);
     }
 

@@ -49,7 +49,16 @@ public class RecruitmentInfoControllerTest {
     }
 
     @Test
-    void testGetInfoByKeyWord() {
-
+    void testGetInfoByKeyWord() throws Exception {
+        String jsonString = "{\"city\":\"%s\",\"workTime\":%s,\"industry\":\"%s\",\"minSalary\":%s,\"maxSalary\":%s,\"offset\":%s,\"rows\":%s}";
+        jsonString = String.format(jsonString, "北京市", "0", "制造业", "null", "null", "0", "5");
+        RequestBuilder requestBuilder = MockMvcRequestBuilders
+                .post("/jobinfo/getbykey")
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .content(jsonString);
+        System.out.println(jsonString);
+        mockMvc.perform(requestBuilder)
+                .andExpect(MockMvcResultMatchers.status().is(200))
+                .andDo(MockMvcResultHandlers.print());
     }
 }
