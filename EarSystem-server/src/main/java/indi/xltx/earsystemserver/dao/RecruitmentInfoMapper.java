@@ -46,6 +46,14 @@ public interface RecruitmentInfoMapper {
     @MapKey("industry")
     Map<String, Integer> getRequirementGroupByIndustry();
 
+    // 按工作经验分的招聘信息条目
+    @Select("select worktime, count(*) AS value from job_info group by worktime")
+    List<Map<String, Integer>> getRequirementGroupByWorkTime();
+
+    // 按工作经验查询薪资：max min avg
+    @SelectProvider(RecruitmentInfoSqlProvider.class)
+    List<Map<String, Float>> getSalaryGroupByWorkTime(String mode);
+
     class RecruitmentInfoSqlProvider implements ProviderMethodResolver {
         // 获取最新职业信息（简略）的SQL语句生成器
         public static String getLatestInfo(@Param("limit") Integer limit) {
@@ -113,6 +121,28 @@ public interface RecruitmentInfoMapper {
                     SELECT("SUM(quantity)");
                     FROM("job_info");
                     GROUP_BY("industry");
+                }
+            }.toString();
+        }
+
+        public static String getSalaryGroupByWorkTime(String mode) {
+            return new SQL() {
+                {
+                    SELECT("worktime");
+                    switch (mode) {
+                        case "max":
+                            SELECT("max(maxsalary) as value");
+                            break;
+                        case "avg":
+                            SELECT("(avg(minsalary)+avg(maxsalary))/2 as value");
+                            break;
+                        case "min":
+                            SELECT("min(minsalary) as value");
+                        default:
+                            break;
+                    }
+                    FROM("job_info");
+                    GROUP_BY("worktime");
                 }
             }.toString();
         }

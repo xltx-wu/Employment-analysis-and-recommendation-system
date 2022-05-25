@@ -24,6 +24,9 @@ public class RecruitmentInfoMapperTest {
     @Autowired
     private SqlSessionFactory factory;
 
+    @Autowired
+    private RecruitmentInfoMapper mapper;
+
     @BeforeEach
     void start() {
         System.out.println("-----------------------开始---------------------------");
@@ -74,6 +77,18 @@ public class RecruitmentInfoMapperTest {
 
     @Test
     void testGetRequirementGroupByIndustry() {
+
+    }
+
+    @Test
+    void testGetRequirementGroupByWorkTime() {
+        System.out.println(mapper.getRequirementGroupByWorkTime());
+    }
+
+    @Test
+    void testGetSalaryGroupByWorkTime() {
+
+        System.out.println(mapper.getSalaryGroupByWorkTime("avg"));
 
     }
 }

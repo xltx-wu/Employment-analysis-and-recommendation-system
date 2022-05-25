@@ -25,6 +25,20 @@ public class RecruitmentInfoService {
 
     private List<RecruitmentInfo> latestInfoList;
     private List<String> cityList;
+    private List<String> industryList;
+
+    /**
+     * @return the industryList
+     */
+    public List<String> getIndustryList() {
+        return industryList;
+    }
+
+    @Scheduled(cron = "0 0 0/1 * * ?")
+    @Async("myTaskAsyncPool")
+    public void setIndustryList() {
+        this.industryList = recruitmentInfoMapper.getIndustryList();
+    }
 
     /**
      * @return the cityList
@@ -33,9 +47,6 @@ public class RecruitmentInfoService {
         return cityList;
     }
 
-    /**
-     * @param cityList the cityList to set
-     */
     @Scheduled(cron = "0 0 0/1 * * ?")
     @Async("myTaskAsyncPool")
     public void setCityList() {
@@ -49,9 +60,6 @@ public class RecruitmentInfoService {
         return latestInfoList;
     }
 
-    /**
-     * @param limit the latestInfoList to set
-     */
     // 每一个小时执行一次
     @Scheduled(cron = "0 0 0/1 * * ?")
     @Async("myTaskAsyncPool")

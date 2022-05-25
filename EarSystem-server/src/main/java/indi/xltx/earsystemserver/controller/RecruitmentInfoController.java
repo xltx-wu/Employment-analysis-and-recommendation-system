@@ -53,9 +53,7 @@ public class RecruitmentInfoController {
     // 获取行业列表
     @RequestMapping(value = "/getindustrylist", method = RequestMethod.POST)
     public List<String> getIndustryList() {
-        List<String> mList = new ArrayList<String>();
-        mList = infoMapper.getIndustryList();
-        return mList;
+        return service.getIndustryList();
     }
 
     // 获取城市列表
