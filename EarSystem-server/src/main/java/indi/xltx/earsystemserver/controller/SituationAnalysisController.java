@@ -1,5 +1,8 @@
 package indi.xltx.earsystemserver.controller;
 
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,12 +19,12 @@ public class SituationAnalysisController {
     private SituationAnalysisService analysisService;
 
     @RequestMapping(value = "/analyzeByWorkTime", method = RequestMethod.GET)
-    public String analyzeByWorkTime() {
-        return analysisService.analyzeByWorkTime().toString();
+    public List<Map<String, ?>> analyzeByWorkTime() {
+        return analysisService.analyzeByWorkTime();
     }
 
     @RequestMapping(value = "/analyzeSalaryByWorktime", method = RequestMethod.GET)
-    public String analyzeSalaryByWorkTime(@RequestParam String mode) {
+    public List<Map<String, ?>> analyzeSalaryByWorkTime(@RequestParam String mode) {
         String myMode = "avg";
         switch (mode) {
             case "max":
@@ -34,6 +37,31 @@ public class SituationAnalysisController {
                 myMode = "avg";
                 break;
         }
-        return analysisService.analyzeSalaryByWorkTime(myMode).toString();
+        return analysisService.analyzeSalaryByWorkTime(myMode);
+    }
+
+    @RequestMapping(value = "/analyzeByIndustry", method = RequestMethod.GET)
+    public List<Map<String, ?>> analyzeByIndustry() {
+        return analysisService.analyzeByIndustry();
+    }
+
+    @RequestMapping(value = "/analyzeByProfession", method = RequestMethod.GET)
+    public List<Map<String, ?>> analyzeByProfession() {
+        return analysisService.analyzeByProfession();
+    }
+
+    @RequestMapping(value = "/analyzeByIndustryAndWorktime", method = RequestMethod.GET)
+    public Map<String, ?> analyzeByIndustryAndWorktime() {
+        return analysisService.analyzeByIndustryAndWorkTime();
+    }
+
+    @RequestMapping(value = "/analyzeSalaryByIndustry", method = RequestMethod.GET)
+    public List<Map<String, ?>> analyzeSalaryByIndustry() {
+        return analysisService.analyzeSalaryByIndustry();
+    }
+
+    @RequestMapping(value = "/analyzeSalaryByProfession", method = RequestMethod.GET)
+    public List<Map<String, ?>> analyzeSalaryByProfession() {
+        return analysisService.analyzeSalaryByProfession();
     }
 }

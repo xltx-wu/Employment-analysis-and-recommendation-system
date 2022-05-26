@@ -37,3 +37,11 @@ dependencies {
 tasks.named('test') {
     useJUnitPlatform()
 }
+// 跳过测试
+gradle.taskGraph.whenReady {
+    tasks.each { task ->
+        if (task.name.contains("test")) {
+            task.enabled = false
+        }
+    }
+}

@@ -91,4 +91,25 @@ public class RecruitmentInfoMapperTest {
         System.out.println(mapper.getSalaryGroupByWorkTime("avg"));
 
     }
+
+    @Test
+    void testGetRequirementGroupByProfession() {
+        System.out.println(mapper.getRequirementGroupByProfession());
+    }
+
+    @Test
+    void testGetRequirementByIndustryAndWorkTime() {
+        System.out.println(mapper.getRequirementByIndustryAndWorkTime("制造业", 2));
+    }
+
+    @Test
+    void testGetSalaryGroupByIndustry() {
+        System.out.println(mapper.getSalaryGroupByIndustry());
+    }
+
+    @Test
+    void testGetSalaryGroupByProfession() {
+        System.out.println(mapper.getSalaryGroupByProfession());
+
+    }
 }
