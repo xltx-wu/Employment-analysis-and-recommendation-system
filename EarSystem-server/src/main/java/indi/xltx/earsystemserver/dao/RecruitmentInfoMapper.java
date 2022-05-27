@@ -134,7 +134,7 @@ public interface RecruitmentInfoMapper {
             return new SQL() {
                 {
                     SELECT("industry");
-                    SELECT("SUM(quantity)");
+                    SELECT("SUM(quantity) as value");
                     FROM("job_info");
                     GROUP_BY("industry");
                 }
